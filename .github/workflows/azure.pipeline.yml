@@ -14,7 +14,7 @@ jobs:
     - name: Azure Login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${{ secrets.NSG_SECRECT }}
  
     - name: Deploy ARM Template
       uses: azure/arm-deploy@v1
