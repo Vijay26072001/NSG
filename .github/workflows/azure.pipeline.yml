@@ -1,0 +1,30 @@
+name: Deploy Network Security Group
+ 
+on:
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+ 
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+ 
+    - name: Deploy ARM Template
+      uses: azure/arm-deploy@v1
+      with:
+        resourceGroupName: "123DemoResourceGroup"
+        template: ./nsg.json
+        parameters: >
+          nsgName=Yerramalansg
+          vnetName=Yerramalavnet
+          subnetName=subnet1
+          addressPrefix=10.0.1.0/24
+        deploymentName: github-deployment
+ 
